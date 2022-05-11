@@ -61,4 +61,21 @@ describe('Band and Musician Models', () => {
         expect(Band1Songs.length).toBe(2)
         expect(Song1Bands.length).toBe(2)
     })
+    test('test for eager- list of musicians in in Bands',async()=>{
+        const bandsAndMusicians = await Band.findAll({
+            include: [
+                {model:Musician, As: 'ArtistInBands'}
+            ]
+        })
+        expect(bandsAndMusicians.length).toBe(5)
+    })
+    test('test for eager- list of Songs in in Bands',async()=>{
+        const bandsAndSongs = await Band.findAll({
+            include: [
+                {model:Song, As: 'BandsSong'}
+            ]
+        })
+        expect(bandsAndSongs.length).toBe(5)
+        console.log(bandsAndSongs)
+    })
 })
